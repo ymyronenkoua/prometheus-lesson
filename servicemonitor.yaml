@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prometheus-example-app-sm
+  labels:
+    release: prometheus-operator
+    app: prometheus-example-app
+spec:
+  selector:
+    matchLabels:
+      app: prometheus-example-app
+  endpoints:
+  - port: web
+    path: /metrics
+    interval: 10s
+    honorLabels: true

@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus-operator
+    release: prometheus-operator
+  name: alert-rules
+  namespace: default
+spec:
+  groups:
+    - name: alert-rules
+      rules:
+        - alert: HTTPExampleAppGT20
+          expr: http_requests_total{code="200"} > 20
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: On pod {{ $labels.pod }} http requestes > 20
+            description: "High load on http server\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

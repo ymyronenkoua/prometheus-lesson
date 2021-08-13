@@ -1,0 +1,7 @@
+helm install prometheus-operator prometheus-community/kube-prometheus-stack -f values.yaml
+
+kubectl port-forward svc/prometheus-operator-grafana 8080:80
+kubectl port-forward svc/prometheus-operator-prometheus 8081:9090
+kubectl port-forward svc/prometheus-operator-alertmanager 8082:9093
+
+kubectl port-forward svc/prometheus-example-app-svc 8085:8080

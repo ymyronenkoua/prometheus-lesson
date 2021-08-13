@@ -1,0 +1,43 @@
+fullnameOverride: prometheus-operator
+nameOverride: prometheus-operator
+kubeVersionOverride: "1.16.6"        
+
+defaultRules:
+  create: true
+prometheusOperator:
+  tls:
+    enabled: false
+  admissionWebhooks:
+    enabled: false
+    patch:
+      enabled: false
+
+grafana:
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      provider: 
+        foldersFromFilesStructure: true
+  grafana.ini:
+    users:
+      viewers_can_edit: false
+    auth.anonymous:
+      enabled: true
+      org_role: Viewer
+  ingress:
+    enabled: false
+
+prometheus:
+  prometheusSpec:
+    enableAdminAPI: true
+    replicas: 1
+    retentionSize: 2GB
+    retention: 1d
+  ingress:
+    enabled: false
+
+alertmanager:
+  ingress:
+    enabled: false
+
